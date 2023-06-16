@@ -5,6 +5,8 @@
  *
  * Return: Return 0 (Success)
  */
+int main(void)
+{
 int alph;
 for (alph = 'a'; alph <= 'z'; alph++)
 {
