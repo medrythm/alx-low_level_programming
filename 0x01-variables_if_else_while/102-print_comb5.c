@@ -6,8 +6,6 @@
 */
 int main(void)
 {
-int main(void)
-{
 int dgt1, dgt2;
 for (dgt1 = 0; dgt1 <= 98; dgt1++)
 {
