@@ -13,7 +13,6 @@ for (ch = 'a'; ch <= 'z'; ch++)
 ch = tolower(ch);
 putchar(ch);
 }
-printf("\n");
 for (ch = 'A'; ch <= 'Z'; ch++)
 {
 ch = toupper(ch);
