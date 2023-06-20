@@ -13,6 +13,6 @@ int main(void)
 		_putchar(alx[i]);
 	}
 	_putchar(10);
-	
 	return (0);
+
 }
