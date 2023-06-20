@@ -6,16 +6,16 @@
  */
 int main(void)
 {
-	char alx[10] = "_putchar";
+        char alx[10] = "_putchar";
 
-	int i;
+        int i;
 
-	for (i = 0; i < 8; i++)
-	{
-		_putchar(alx[i]);
-	}
+        for (i = 0; i < 8; i++)
+        {
+                _putchar(alx[i]);
+        }
 
-	_putchar(10);
+        _putchar(10);
 
-	return (0);
+        return (0);
 }
