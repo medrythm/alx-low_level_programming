@@ -1,48 +1,39 @@
-0x09. C - Static libraries
-==========================
+0x04. C - More functions, more nested loops
+===========================================
 
 -   By Julien Barbier
--   Ongoing project - started 09-17-2021, must end by 09-18-2021 (in about 7 hours) - you're done with 0% of tasks.
--   Checker will be released at 09-18-2021 12:00 AM
--   QA review fully automated.
 
-Concepts
---------
-
-*For this project, students are expected to look at this concept:*
-
--   [C static libraries](https://alx-intranet.hbtn.io/concepts/61)
 
 Resources
 ---------
 
 **Read or watch**:
 
--   [What Is A "C" Library? What Is It Good For?](https://alx-intranet.hbtn.io/rltoken/XB1iH0qE6gshx0x8TfRAPQ "What Is A "C" Library? What Is It Good For?")
--   [Creating A Static "C" Library Using "ar" and "ranlib"](https://alx-intranet.hbtn.io/rltoken/XB1iH0qE6gshx0x8TfRAPQ "Creating A Static "C" Library Using "ar" and "ranlib"")
--   [Using A "C" Library In A Program](https://alx-intranet.hbtn.io/rltoken/XB1iH0qE6gshx0x8TfRAPQ "Using A "C" Library In A Program")
--   [What is difference between Dynamic and Static library(Static and Dynamic linking)](https://alx-intranet.hbtn.io/rltoken/PexOGO-npR_ZDQk-SpOR9g "What is difference between Dynamic and Static library(Static and Dynamic linking)") (*stop at 4:44*)
-
-**man or help**:
-
--   `ar`
--   `ranlib`
--   `nm`
+-   [Nested while loops](https://alx-intranet.hbtn.io/rltoken/aDRkFzUkVysnD94Dpm3w5g "Nested while loops")
+-   [C - Functions](https://alx-intranet.hbtn.io/rltoken/zf4IZeoe0yFZL2X7_nznQQ "C - Functions")
+-   [Learning to Program in C (Part 06)](https://alx-intranet.hbtn.io/rltoken/iQ87CI4Lf41U_uRh9QsoQA "Learning to Program in C (Part 06)") (*stop at 14:00*)
+-   [What is the purpose of a function prototype?](https://alx-intranet.hbtn.io/rltoken/pUXhvD6-xl5BbWyj1AhCEA "What is the purpose of a function prototype?")
+-   [C - Header Files](https://alx-intranet.hbtn.io/rltoken/IFY075ffrszSJvHqPAa-zQ "C - Header Files") (*stop before the "Once-Only Headers" paragraph*)
 
 Learning Objectives
 -------------------
 
-At the end of this project, you are expected to be able to [explain to anyone](https://alx-intranet.hbtn.io/rltoken/R2SLiVhepS5knw2WgTDRkg "explain to anyone"), **without the help of Google**:
+At the end of this project, you are expected to be able to [explain to anyone](https://alx-intranet.hbtn.io/rltoken/qxo8nrqjGy1G9N_n87yE4g "explain to anyone"), **without the help of Google**:
 
 ### General
 
--   What is a static library, how does it work, how to create one, and how to use it
--   Basic usage of `ar`, `ranlib`, `nm`
+-   What are nested loops and how to use them
+-   What is a function and how do you use functions
+-   What is the difference between a declaration and a definition of a function
+-   What is a prototype
+-   Scope of variables
+-   What are the `gcc` flags `-Wall -Werror -pedantic -Wextra -std=gnu89`
+-   What are header files and how to to use them with `#include`
 
 Requirements
 ------------
 
-### C
+### General
 
 -   Allowed editors: `vi`, `vim`, `emacs`
 -   All your files will be compiled on Ubuntu 20.04 LTS using `gcc`, using the options `-Wall -Werror -Wextra -pedantic -std=gnu89`
@@ -58,206 +49,522 @@ Requirements
 -   The prototypes of all your functions and the prototype of the function `_putchar` should be included in your header file called `main.h`
 -   Don't forget to push your header file
 
-### Bash
-
--   Allowed editors: `vi`, `vim`, `emacs`
--   All your scripts will be tested on Ubuntu 20.04 LTS
--   All your files should end with a new line ([why?](http://unix.stackexchange.com/questions/18743/whats-the-point-in-adding-a-new-line-to-the-end-of-a-file/18789))
--   The first line of all your files should be exactly `#!/bin/bash`
--   A `README.md` file, at the root of the folder of the project, describing what each script is doing
--   All your files must be executable
-
-More Info
----------
-
-You do not need to learn about dynamic libraries, yet.
-
-
 Tasks
 -----
 
-### 0\. A library is not a luxury but one of the necessities of life
+### 0\. isupper
 
 mandatory
 
-Create the static library `libmy.a` containing all the functions listed below:
+Write a function that checks for uppercase character.
+
+-   Prototype: `int _isupper(int c);`
+-   Returns `1` if `c` is uppercase
+-   Returns `0` otherwise
+
+FYI: The standard library provides a similar function: `isupper`. Run `man isupper` to learn more.
 
 ```
-int _putchar(char c);
-int _islower(int c);
-int _isalpha(int c);
-int _abs(int n);
-int _isupper(int c);
-int _isdigit(int c);
-int _strlen(char *s);
-void _puts(char *s);
-char *_strcpy(char *dest, char *src);
-int _atoi(char *s);
-char *_strcat(char *dest, char *src);
-char *_strncat(char *dest, char *src, int n);
-char *_strncpy(char *dest, char *src, int n);
-int _strcmp(char *s1, char *s2);
-char *_memset(char *s, char b, unsigned int n);
-char *_memcpy(char *dest, char *src, unsigned int n);
-char *_strchr(char *s, char c);
-unsigned int _strspn(char *s, char *accept);
-char *_strpbrk(char *s, char *accept);
-char *_strstr(char *haystack, char *needle);
-
-```
-
-If you haven't coded all of the above functions create empty ones with the right prototype.\
-Don't forget to push your `main.h` file to your repository. It should at least contain all the prototypes of the above functions.
-
-```
-julien@ubuntu:~/0x09. Static Librairies$ ar -t libmy.a
-0-isupper.o
-0-memset.o
-0-strcat.o
-1-isdigit.o
-1-memcpy.o
-1-strncat.o
-100-atoi.o
-2-strchr.o
-2-strlen.o
-2-strncpy.o
-3-islower.o
-3-puts.o
-3-strcmp.o
-3-strspn.o
-4-isalpha.o
-4-strpbrk.o
-5-strstr.o
-6-abs.o
-9-strcpy.o
-_putchar.o
-julien@ubuntu:~/0x09. Static Librairies$ nm libmy.a
-
-0-isupper.o:
-0000000000000000 T _isupper
-
-0-memset.o:
-0000000000000000 T _memset
-
-0-strcat.o:
-0000000000000000 T _strcat
-
-1-isdigit.o:
-0000000000000000 T _isdigit
-
-1-memcpy.o:
-0000000000000000 T _memcpy
-
-1-strncat.o:
-0000000000000000 T _strncat
-
-100-atoi.o:
-0000000000000000 T _atoi
-
-2-strchr.o:
-0000000000000000 T _strchr
-
-2-strlen.o:
-0000000000000000 T _strlen
-
-2-strncpy.o:
-0000000000000000 T _strncpy
-
-3-islower.o:
-0000000000000000 T _islower
-
-3-puts.o:
-                 U _putchar
-0000000000000000 T _puts
-
-3-strcmp.o:
-0000000000000000 T _strcmp
-
-3-strspn.o:
-0000000000000000 T _strspn
-
-4-isalpha.o:
-0000000000000000 T _isalpha
-
-4-strpbrk.o:
-0000000000000000 T _strpbrk
-
-5-strstr.o:
-0000000000000000 T _strstr
-
-6-abs.o:
-0000000000000000 T _abs
-
-9-strcpy.o:
-0000000000000000 T _strcpy
-
-_putchar.o:
-0000000000000000 T _putchar
-                 U write
-julien@ubuntu:~/0x09. Static Librairies$ cat main.c
+julien@ubuntu:~/0x04$ cat 0-main.c
 #include "main.h"
+#include <stdio.h>
 
+/**
+ * main - check the code.
+ *
+ * Return: Always 0.
+ */
 int main(void)
 {
-    _puts("\"At the end of the day, my goal was to be the best hacker\"\n\t- Kevin Mitnick");
+    char c;
+
+    c = 'A';
+    printf("%c: %d\n", c, _isupper(c));
+    c = 'a';
+    printf("%c: %d\n", c, _isupper(c));
     return (0);
 }
-julien@ubuntu:~/0x09. Static Librairies$ gcc -std=gnu89 main.c -L. -lmy -o quote
-julien@ubuntu:~/0x09. Static Librairies$ ./quote
-"At the end of the day, my goal was to be the best hacker"
-    - Kevin Mitnick
-julien@ubuntu:~/0x09. Static Librairies$
+julien@ubuntu:~/0x04$ gcc -Wall -pedantic -Werror -Wextra -std=gnu89 0-main.c 0-isupper.c -o 0-isuper
+julien@ubuntu:~/0x04$ ./0-isuper
+A: 1
+a: 0
+julien@ubuntu:~/0x04$
 
 ```
 
 **Repo:**
 
 -   GitHub repository: `alx-low_level_programming`
--   Directory: `0x09-static_libraries`
--   File: `libmy.a, main.h`
+-   Directory: `0x04-more_functions_nested_loops`
+-   File: `0-isupper.c`
 
- Done? Help
+ Done? Help Check your code
 
-### 1\. Without libraries what have we? We have no past and no future
+### 1\. isdigit
 
 mandatory
 
-Create a script called `create_static_lib.sh` that creates a static library called `liball.a` from all the `.c` files that are in the current directory.
+Write a function that checks for a digit (`0` through `9`).
+
+-   Prototype: `int _isdigit(int c);`
+-   Returns `1` if `c` is a digit
+-   Returns `0` otherwise
+
+FYI: The standard library provides a similar function: isdigit. Run man isdigit to learn more.
 
 ```
-julien@ubuntu:~/0x09. Static Librairies$ ls *.c
-0-isupper.c  0-strcat.c  1-isdigit.c  1-strncat.c  2-strlen.c   3-islower.c  3-strcmp.c  4-isalpha.c  5-strstr.c  9-strcpy.c  _putchar.c
-0-memset.c   100-atoi.c  1-memcpy.c   2-strchr.c   2-strncpy.c  3-puts.c     3-strspn.c  4-strpbrk.c  6-abs.c
-julien@ubuntu:~/0x09. Static Librairies$ ./create_static_lib.sh
-julien@ubuntu:~/0x09. Static Librairies$ ls *.a
-liball.a
-julien@ubuntu:~/0x09. Static Librairies$ ar -t liball.a
-0-isupper.o
-0-memset.o
-0-strcat.o
-100-atoi.o
-1-isdigit.o
-1-memcpy.o
-1-strncat.o
-2-strchr.o
-2-strlen.o
-2-strncpy.o
-3-islower.o
-3-puts.o
-3-strcmp.o
-3-strspn.o
-4-isalpha.o
-4-strpbrk.o
-5-strstr.o
-6-abs.o
-9-strcpy.o
-_putchar.o
-julien@ubuntu:~/0x09. Static Librairies$
+julien@ubuntu:~/0x04$ cat 1-main.c
+#include "main.h"
+#include <stdio.h>
+
+/**
+ * main - check the code
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+    char c;
+
+    c = '0';
+    printf("%c: %d\n", c, _isdigit(c));
+    c = 'a';
+    printf("%c: %d\n", c, _isdigit(c));
+    return (0);
+}
+julien@ubuntu:~/0x04$ gcc -Wall -pedantic -Werror -Wextra -std=gnu89 1-main.c 1-isdigit.c -o 1-isdigit
+julien@ubuntu:~/0x04$ ./1-isdigit
+0: 1
+a: 0
+julien@ubuntu:~/0x04$
 
 ```
 
 **Repo:**
 
 -   GitHub repository: `alx-low_level_programming`
--   Directory: `0x09-static_libraries`
--   File: `create_static_lib.sh`
+-   Directory: `0x04-more_functions_nested_loops`
+-   File: `1-isdigit.c`
+
+ Done? Help Check your code
+
+### 2\. Collaboration is multiplication
+
+mandatory
+
+Write a function that multiplies two integers.
+
+-   Prototype: `int mul(int a, int b);`
+
+```
+julien@ubuntu:~/0x04$ cat 2-main.c
+#include "main.h"
+#include <stdio.h>
+
+/**
+ * main - check the code
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+    printf("%d\n", mul(98, 1024));
+    printf("%d\n", mul(-402, 4096));
+    return (0);
+}
+julien@ubuntu:~/0x04$ gcc -Wall -pedantic -Werror -Wextra -std=gnu89 2-main.c 2-mul.c -o 2-mul
+julien@ubuntu:~/0x04$ ./2-mul
+100352
+-1646592
+julien@ubuntu:~/0x04$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-low_level_programming`
+-   Directory: `0x04-more_functions_nested_loops`
+-   File: `2-mul.c`
+
+ Done? Help Check your code
+
+### 3\. The numbers speak for themselves
+
+mandatory
+
+Write a function that prints the numbers, from `0` to `9`, followed by a new line.
+
+-   Prototype: `void print_numbers(void);`
+-   You can only use `_putchar` twice in your code
+
+```
+julien@ubuntu:~/0x04$ cat 3-main.c
+#include "main.h"
+
+/**
+ * main - check the code
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+    print_numbers();
+    return (0);
+}
+julien@ubuntu:~/0x04$ gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c 3-main.c 3-print_numbers.c -o 3-print_numbers
+julien@ubuntu:~/0x04$ ./3-print_numbers | cat -e
+0123456789$
+julien@ubuntu:~/0x04$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-low_level_programming`
+-   Directory: `0x04-more_functions_nested_loops`
+-   File: `3-print_numbers.c`
+
+ Done? Help Check your code
+
+### 4\. I believe in numbers and signs
+
+mandatory
+
+Write a function that prints the numbers, from `0` to `9`, followed by a new line.
+
+-   Prototype: `void print_most_numbers(void);`
+-   Do not print `2` and `4`
+-   You can only use `_putchar` twice in your code
+
+```
+julien@ubuntu:~/0x04$ cat 4-main.c
+#include "main.h"
+
+/**
+ * main - check the code
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+    print_most_numbers();
+    return (0);
+}
+julien@ubuntu:~/0x04$ gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c 4-main.c 4-print_most_numbers.c -o 4-print_most_numbers
+julien@ubuntu:~/0x04$ ./4-print_most_numbers
+01356789
+julien@ubuntu:~/0x04$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-low_level_programming`
+-   Directory: `0x04-more_functions_nested_loops`
+-   File: `4-print_most_numbers.c`
+
+ Done? Help Check your code
+
+### 5\. Numbers constitute the only universal language
+
+mandatory
+
+Write a function that prints 10 times the numbers, from `0` to `14`, followed by a new line.
+
+-   Prototype: `void more_numbers(void);`
+-   You can only use `_putchar` three times in your code
+
+```
+julien@ubuntu:~/0x04$ cat 5-main.c
+#include "main.h"
+
+/**
+ * main - check the code
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+    more_numbers();
+    return (0);
+}
+julien@ubuntu:~/0x04$ gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c 5-main.c 5-more_numbers.c -o 5-more_numbers
+julien@ubuntu:~/0x04$ ./5-more_numbers
+01234567891011121314
+01234567891011121314
+01234567891011121314
+01234567891011121314
+01234567891011121314
+01234567891011121314
+01234567891011121314
+01234567891011121314
+01234567891011121314
+01234567891011121314
+julien@ubuntu:~/0x04
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-low_level_programming`
+-   Directory: `0x04-more_functions_nested_loops`
+-   File: `5-more_numbers.c`
+
+ Done? Help Check your code
+
+### 6\. The shortest distance between two points is a straight line
+
+mandatory
+
+Write a function that draws a straight line in the terminal.
+
+-   Prototype: `void print_line(int n);`
+-   You can only use `_putchar` function to print
+-   Where `n` is the number of times the character `_` should be printed
+-   The line should end with a `\n`
+-   If `n` is `0` or less, the function should only print `\n`
+
+```
+julien@ubuntu:~/0x04$ cat 6-main.c
+#include "main.h"
+
+/**
+ * main - check the code
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+    print_line(0);
+    print_line(2);
+    print_line(10);
+    print_line(-4);
+    return (0);
+}
+julien@ubuntu:~/0x04$ gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c 6-main.c 6-print_line.c -o 6-lines
+julien@ubuntu:~/0x04$ ./6-lines | cat -e
+$
+__$
+__________$
+$
+julien@ubuntu:~/0x04$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-low_level_programming`
+-   Directory: `0x04-more_functions_nested_loops`
+-   File: `6-print_line.c`
+
+ Done? Help Check your code
+
+### 7\. I feel like I am diagonally parked in a parallel universe
+
+mandatory
+
+Write a function that draws a diagonal line on the terminal.
+
+-   Prototype: `void print_diagonal(int n);`
+-   You can only use `_putchar` function to print
+-   Where `n` is the number of times the character `\` should be printed
+-   The diagonal should end with a `\n`
+-   If `n` is `0` or less, the function should only print a `\n`
+
+```
+julien@ubuntu:~/0x04$ cat 7-main.c
+#include "main.h"
+
+/**
+ * main - check the code
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+    print_diagonal(0);
+    print_diagonal(2);
+    print_diagonal(10);
+    print_diagonal(-4);
+    return (0);
+}
+julien@ubuntu:~/0x04$ gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c 7-main.c 7-print_diagonal.c -o 7-diagonals
+julien@ubuntu:~/0x04$ ./7-diagonals | cat -e
+$
+\$
+ \$
+\$
+ \$
+  \$
+   \$
+    \$
+     \$
+      \$
+       \$
+        \$
+         \$
+$
+julien@ubuntu:~/0x04$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-low_level_programming`
+-   Directory: `0x04-more_functions_nested_loops`
+-   File: `7-print_diagonal.c`
+
+ Done? Help Check your code
+
+### 8\. You are so much sunshine in every square inch
+
+mandatory
+
+Write a function that prints a square, followed by a new line.
+
+-   Prototype: `void print_square(int size);`
+-   You can only use `_putchar` function to print
+-   Where `size` is the size of the square
+-   If `size` is `0` or less, the function should print only a new line
+-   Use the character `#` to print the square
+
+```
+julien@ubuntu:~/0x04$ cat 8-main.c
+#include "main.h"
+
+/**
+ * main - check the code
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+    print_square(2);
+    print_square(10);
+    print_square(0);
+    return (0);
+}
+
+julien@ubuntu:~/0x04$ gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c 8-main.c 8-print_square.c -o 8-squares
+julien@ubuntu:~/0x04$ ./8-squares
+##
+##
+##########
+##########
+##########
+##########
+##########
+##########
+##########
+##########
+##########
+##########
+
+julien@ubuntu:~/0x04$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-low_level_programming`
+-   Directory: `0x04-more_functions_nested_loops`
+-   File: `8-print_square.c`
+
+ Done? Help Check your code
+
+### 9\. Fizz-Buzz
+
+mandatory
+
+The "Fizz-Buzz test" is an interview question designed to help filter out the 99.5% of programming job candidates who can't seem to program their way out of a wet paper bag.
+
+Write a program that prints the numbers from `1` to `100`, followed by a new line. But for multiples of three print `Fizz` instead of the number and for the multiples of five print `Buzz`. For numbers which are multiples of both three and five print `FizzBuzz`.
+
+-   Each number or word should be separated by a space
+-   You are allowed to use the standard library
+
+```
+julien@ubuntu:~/0x04$ gcc -Wall -pedantic -Werror -Wextra -std=gnu89 9-fizz_buzz.c -o 9-fizz_buzz
+julien@ubuntu:~/0x04$ ./9-fizz_buzz
+1 2 Fizz 4 Buzz Fizz 7 8 Fizz Buzz 11 Fizz 13 14 FizzBuzz 16 17 Fizz 19 Buzz Fizz 22 23 Fizz Buzz 26 Fizz 28 29 FizzBuzz 31 32 Fizz 34 Buzz Fizz 37 38 Fizz Buzz 41 Fizz 43 44 FizzBuzz 46 47 Fizz 49 Buzz Fizz 52 53 Fizz Buzz 56 Fizz 58 59 FizzBuzz 61 62 Fizz 64 Buzz Fizz 67 68 Fizz Buzz 71 Fizz 73 74 FizzBuzz 76 77 Fizz 79 Buzz Fizz 82 83 Fizz Buzz 86 Fizz 88 89 FizzBuzz 91 92 Fizz 94 Buzz Fizz 97 98 Fizz Buzz
+julien@ubuntu:~/0x04$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-low_level_programming`
+-   Directory: `0x04-more_functions_nested_loops`
+-   File: `9-fizz_buzz.c`
+
+ Done? Help Check your code Get a sandbox
+
+### 10\. Triangles
+
+mandatory
+
+Write a function that prints a triangle, followed by a new line.
+
+-   Prototype: `void print_triangle(int size);`
+-   You can only use `_putchar` function to print
+-   Where `size` is the size of the triangle
+-   If `size` is `0` or less, the function should print only a new line
+-   Use the character `#` to print the triangle
+
+```
+julien@ubuntu:~/0x04$ cat 10-main.c
+#include "main.h"
+
+/**
+ * main - check the code
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+    print_triangle(2);
+    print_triangle(10);
+    print_triangle(1);
+    print_triangle(0);
+    return (0);
+}
+julien@ubuntu:~/0x04$ gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c 10-main.c 10-print_triangle.c -o 10-triangles
+julien@ubuntu:~/0x04$ ./10-triangles
+ #
+##
+         #
+        ##
+       ###
+      ####
+     #####
+    ######
+   #######
+  ########
+ #########
+##########
+#
+
+julien@ubuntu:~/0x04$ ./10-triangles | tr ' ' . | cat -e
+.#$
+##$
+.........#$
+........##$
+.......###$
+......####$
+.....#####$
+....######$
+...#######$
+..########$
+.#########$
+##########$
+#$
+$
+julien@ubuntu:~/0x04$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-low_level_programming`
+-   Directory: `0x04-more_functions_nested_loops`
+-   File: `10-print_triangle.c`
